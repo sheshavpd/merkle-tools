@@ -27,6 +27,7 @@
     "js-sha3": "^0.8.0"
   },
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "mocha": "^8.2.1"
   }
 }

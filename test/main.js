@@ -577,4 +577,35 @@ describe('Test other hash functions', function () {
       assert.equal(merkleTools.validateProof(merkleTools.getProof(0), '004a237ea808cd9375ee9db9f85625948a890c54e2c30f736f54c969074eb56f0ff3d43dafb4b40d5d974acc1c2a68c046fa4d7c2c20cab6df956514040d0b8b', '3dff3f19b67628591d294cba2c07ed20d20d83e1624af8c1dca8fcf096127b9f86435e2d6a84ca4cee526525cacd1c628bf06ee938983413afafbb4598c5862a'), true)
     })
   })
+
+  describe('Saving and loading Prepared Tree is consistent', function () {
+    var merkleTools = new MerkleTools()
+    merkleTools.addLeaves([
+      'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb',
+      '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d',
+      '2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6',
+      '18ac3e7343f016890c510e93f935261169d9e3f565436429830faf0934f4f8e4',
+      '3f79bb7b435b05321651daefd374cdc681dc06faa65e374e38337b88ca046dea'
+    ])
+    merkleTools.makeTree()
+
+    const leaves = JSON.stringify(merkleTools.getPreparedTree());
+    merkleToolsLoaded = new MerkleTools()
+    merkleToolsLoaded.loadPreparedTree(JSON.parse(leaves));
+    it('merkle root value should be correct', function () {
+      assert.equal(merkleTools.getMerkleRoot().toString('hex'), 'd71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba')
+    })
+
+    it('merkle root is consistent with loaded root', function(){
+      assert.equal(merkleTools.getMerkleRoot().toString('hex'), merkleToolsLoaded.getMerkleRoot().toString('hex'));
+    })
+
+    it('merkle proofs are consistent with loaded proofs', function(){
+      assert.deepEqual(merkleTools.getProof(0), merkleToolsLoaded.getProof(0));
+    })
+
+    it('proof should be valid', function () {
+      assert.equal(merkleTools.validateProof(merkleTools.getProof(1), '3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d', 'd71f8983ad4ee170f8129f1ebcdd7440be7798d8e1c80420bf11f1eced610dba'), true)
+    })
+  })
 })
