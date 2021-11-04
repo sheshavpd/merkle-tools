@@ -2,9 +2,9 @@ declare module 'merkle-tools' {
     export type Proof<T> = { left: T } | { right: T };
 
     class MerkleTree {
-        constructor(options: { hashType: string,
-            progressCB: (progress: number) => void, //callback to call when progress is updated.
-            progressInterval: number //ms in which progress will be updated.
+        constructor(options?: { hashType?: string,
+            progressCB?: (progress: number) => void, //callback to call when progress is updated.
+            progressInterval?: number //ms in which progress will be updated.
         });
 
         getMerkleRoot(): Buffer | null;
