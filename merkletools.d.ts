@@ -18,6 +18,7 @@ declare module 'merkle-tools' {
         getLeafCount(): number;
 
         getPreparedTree(): string[]
+        loadPreparedTree(levels: string[][]): void
 
         getTreeReadyState(): boolean;
 
