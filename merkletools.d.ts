@@ -31,7 +31,7 @@ declare module 'merkle-tools' {
         makeBTCTree(doubleHash?: boolean): void;
 
         validateProof(
-            proof: Proof<string | Buffer>,
+            proof: Proof<string>[] | Proof<Buffer>[],
             targetHash: string | Buffer,
             merkleRoot: string | Buffer,
             doubleHash?: boolean,
