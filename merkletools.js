@@ -72,7 +72,7 @@ var MerkleTools = function (treeOptions) {
         for(let i = 0; i < tree.levels.length; i++) {
             preparedTree.push([]);
            for(let j = 0; j < tree.levels[i].length; j++) {
-               preparedTree[i].push(tree.levels[i][j].toString());
+               preparedTree[i].push(tree.levels[i][j].toString("base64"));
            }
         }
         return tree.levels;
@@ -84,7 +84,7 @@ var MerkleTools = function (treeOptions) {
         for(let i = 0; i < levels.length; i++) {
             tree.levels.push([]);
             for(let j = 0; j < levels[i].length; j++) {
-                tree.levels[i].push(Buffer.from(levels[i][j]));
+                tree.levels[i].push(Buffer.from(levels[i][j], "base64"));
             }
         }
         tree.isReady = true;
