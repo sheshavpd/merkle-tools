@@ -72,10 +72,11 @@ var MerkleTools = function (treeOptions) {
         for(let i = 0; i < tree.levels.length; i++) {
             preparedTree.push([]);
            for(let j = 0; j < tree.levels[i].length; j++) {
+               // Takes 3 times less serialized bytes to push as base64.
                preparedTree[i].push(tree.levels[i][j].toString("base64"));
            }
         }
-        return tree.levels;
+        return preparedTree;
     }
 
     //Load prepared trees to generate proofs.
